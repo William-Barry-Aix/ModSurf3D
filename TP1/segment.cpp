@@ -25,18 +25,10 @@ Segment::Segment(const Segment & s)
 }
 
 Point Segment::getPoint(float p){
-    // A B ratio = 1
-    // p = pourcentage
-    Point P = Point();
-    p = p;
-    float x = getStart().getX();
-    float y = getStart().getY();
-    x += p*(getStart().getX()+getEnd().getX());
-    y += p*(getStart().getY()+getEnd().getY());
-    P.setX(length()* x);
-    P.setY(length()* y*y);
-    P.setZ(0);
-    return P;
+    Point res;
+    res = getStart()*(1-p)+getEnd()*p;
+
+    return res;
 }
 void Segment::setStart(const Point & p)
 {

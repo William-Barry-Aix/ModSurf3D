@@ -72,12 +72,38 @@ void Point::setZ(const float& v)
 	setN(2, v);
 }
 
-Point& Point::operator= (const Point &p)
+Point& Point::operator=(const Point &p)
 {
 	for (unsigned i=0; i<3; ++i)
 		coords[i] = p.coords[i];
 
-return *this;
+    return *this;
+}
+
+Point Point::operator*(const Point &p){
+    Point res = Point();
+    res.setX(getX()*p.getX());
+    res.setY(getY()*p.getY());
+    res.setZ(getZ()*p.getZ());
+
+    return res;
+}
+Point Point::operator*(const float &p){
+    Point res = Point();
+    res.setX(getX()*p);
+    res.setY(getY()*p);
+    res.setZ(getZ()*p);
+
+    return res;
+}
+
+Point Point::operator+(const Point &p){
+    Point res = Point();
+    res.setX(getX()+p.getX());
+    res.setY(getY()+p.getY());
+    res.setZ(getZ()+p.getZ());
+
+    return res;
 }
 
 std::ostream& operator<<(std::ostream& out, const Point& p)

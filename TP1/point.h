@@ -22,7 +22,10 @@ public:
 	~Point();
 	Point(const Point&);
 
-	Point& operator= (const Point &);
+    Point& operator=(const Point &);
+    Point operator*(const Point &p);
+    Point operator*(const float &p);
+    Point operator+(const Point &p);
 
 
 	float getN(unsigned) const;
@@ -37,8 +40,7 @@ public:
 	void setZ(const float&);
 	void set(const float *);
 
-	friend std::ostream& operator<<(std::ostream&, const Point&);
-
+    friend std::ostream& operator<<(std::ostream&, const Point&);
 };
 
 #endif // POINT_H
