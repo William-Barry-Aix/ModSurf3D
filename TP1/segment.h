@@ -11,31 +11,24 @@
 #define SEGMENT_H
 
 #include "point.h"
+#include "objet2d.h"
 #include <QOpenGLFunctions>
 #include <QOpenGLBuffer>
 #include <QOpenGLShaderProgram>
 
-class Segment
+class Segment : public Objet2D
 {
 private:
-	Point * pointList;
 public:
-    Segment();
-	~Segment();
-
+    Segment(): Objet2D(){}
 	Segment(const Segment&);
-
-	Segment& operator= (const Segment &);
-
+    virtual Point getPoint(float p);
 
 	void setStart(const Point&);
-	void setEnd(const Point&);
-	void setN(unsigned, const Point&);
+    void setEnd(const Point&);
 
-	Point getN(unsigned) const;
-	Point getStart() const;
-	Point getEnd() const;
-    Point getPoint(float p);
+    Point getStart() const;
+    Point getEnd()const ;
 
 	float length() const;
 	friend std::ostream& operator<<(std::ostream&, const Segment&);

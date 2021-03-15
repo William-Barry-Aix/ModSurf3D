@@ -3,57 +3,36 @@
 #include "segment.h"
 #include <QDebug>
 
-Segment::Segment()
+
+Segment::Segment(const Segment & s): Objet2D()
 {
-    pointList = new Point[2];
-}
-
-Segment::~Segment()
-{
-	delete [] pointList;
-    pointList = nullptr;
-}
-
-
-Segment::Segment(const Segment & s)
-{
-	pointList = new Point[2];
-
 	for (unsigned i=0; i<2; ++i)
-		pointList[i] = s.pointList[i];
+        pointList->replace(i, s.pointList->at(i));
 
 }
 
 Point Segment::getPoint(float p){
     Point res;
+    //p *= p;
     res = getStart()*(1-p)+getEnd()*p;
-
     return res;
 }
 void Segment::setStart(const Point & p)
 {
-	pointList[0] = p;
+    if (pointList->length()!=0){
+       setN(0, p);
+    }else
+        pointList->append(p);
 }
 
 void Segment::setEnd(const Point & p)
 {
-	pointList[1] = p;
+    if (pointList->length()!=1){
+        setN(1, p);
+    }else
+        pointList->append(p);
 }
 
-void Segment::setN(unsigned r, const Point & p)
-{
-	if (r>1)
-		r=1;
-	pointList[r] = p;
-}
-
-Point Segment::getN(unsigned r) const
-{
-	if (r>1)
-		r=1;
-
-	return pointList[r];
-}
 
 Point Segment::getStart() const
 {
@@ -68,23 +47,12 @@ Point Segment::getEnd() const
 
 float Segment::length() const
 {
-	float res=0.0f;
-
-	for (unsigned i=0; i<3; ++i)
-		res += pow((pointList[1]).getN(i) - (pointList[0]).getN(i), 2.0f);
-
+    Point start = getStart(), end = getEnd();
+    float res = (start.getX()*end.getX()) + (start.getY()*end.getY());
 	return sqrt(res);
-}
-
-Segment& Segment::operator= (const Segment &s)
-{
-	for (unsigned i=0; i<2; ++i)
-		pointList[i] = s.pointList[i];
-
-return *this;
 }
 
 std::ostream& operator<<(std::ostream& out, const Segment& s)
 {
-	return out << s.pointList[0] << " -- " << s.pointList[1];
+    return out << s.getStart() << " -- " << s.getEnd();
 }

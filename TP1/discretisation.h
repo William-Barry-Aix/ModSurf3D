@@ -1,18 +1,18 @@
-#ifndef SEGMENTDISCRETISATION_H
-#define SEGMENTDISCRETISATION_H
+#ifndef DISCRETISATION_H
+#define DISCRETISATION_H
 #include <QOpenGLFunctions>
 #include <QOpenGLBuffer>
 #include <QOpenGLShaderProgram>
 #include <QVector>
 #include "segment.h"
 
-class SegmentDiscretisation
+class Discretisation
 {
 public:
-    Segment *segment;
-    SegmentDiscretisation(Segment *segment);
-    ~SegmentDiscretisation();
-    Segment* getSegment();
+    Objet2D *objet;
+    Discretisation(Objet2D *segment);
+    ~Discretisation();
+    Objet2D* getObjet();
     void initPts();
     void genVBO();
     void draw(QOpenGLShaderProgram* m_program, QOpenGLFunctions *glFuncs);
@@ -24,4 +24,4 @@ public:
 
 };
 
-#endif // SEGMENTDISCRETISATION_H
+#endif // DISCRETISATION_H

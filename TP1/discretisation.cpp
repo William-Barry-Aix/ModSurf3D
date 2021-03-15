@@ -1,11 +1,11 @@
-#include "segmentdiscretisation.h"
+#include "discretisation.h"
 
-SegmentDiscretisation::SegmentDiscretisation(Segment *segment)
+Discretisation::Discretisation(Objet2D *objet)
 {    
-    this->segment = segment;
+    this->objet = objet;
 }
 
-void SegmentDiscretisation::genVBO(){
+void Discretisation::genVBO(){
     initPts();
 
     m_vbo.create();
@@ -14,15 +14,15 @@ void SegmentDiscretisation::genVBO(){
     m_vbo.release();
 }
 
-SegmentDiscretisation::~SegmentDiscretisation(){
+Discretisation::~Discretisation(){
     m_vbo.destroy();
 }
 
-Segment* SegmentDiscretisation::getSegment(){
-    return this->segment;
+Objet2D* Discretisation::getObjet(){
+    return this->objet;
 }
 
-void SegmentDiscretisation::initPts(){
+void Discretisation::initPts(){
     //1 Traduction en tableaux de floats
 
     QVector<Point> points = getPoints();
@@ -34,22 +34,7 @@ void SegmentDiscretisation::initPts(){
         vertices[i*3+1] = points.at(i).getY();
         vertices[i*3+2] = points.at(i).getZ();
     }
-    /*
-    Point begin, end;
-    float * values = new float[3];
 
-    begin = segment->getStart ();
-    begin.get(values);
-    for (unsigned i=0; i<3; ++i)
-        vertices[i] = values[i];
-
-    end = segment->getEnd ();
-    end.get(values);
-    for (unsigned i=0; i<3; ++i)
-        vertices[3+i] = values[i];
-
-    delete[] values;
-    */
     //couleur0 = rouge
     colors[0] = 1.0;
     colors[1] = 0.0;
@@ -69,16 +54,18 @@ void SegmentDiscretisation::initPts(){
     delete [] vertices;
     delete [] colors;
 }
-QVector<Point> SegmentDiscretisation::getPoints(){
+QVector<Point> Discretisation::getPoints(){
     QVector<Point> points = QVector<Point>();
     for (float i = 0; i <= 1; i+=0.1){
-        points.append(segment->getPoint(i));
+        Point point = objet->getPoint(i);
+        //point.setX(point.getX()*point.getX());
+        points.append(point);
     }
     return points;
 }
 
 
-void SegmentDiscretisation::draw(QOpenGLShaderProgram* m_program, QOpenGLFunctions *glFuncs){
+void Discretisation::draw(QOpenGLShaderProgram* m_program, QOpenGLFunctions *glFuncs){
     m_vbo.bind();
 
     m_program->setAttributeBuffer("posAttr", GL_FLOAT, 0, 3, 6 * sizeof(GLfloat));

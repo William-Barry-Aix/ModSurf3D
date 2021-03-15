@@ -77,7 +77,7 @@ void myOpenGLWidget::makeGLObjects()
 {
 
 	//1 Nos objets géométriques
-	Point A, B;
+    Point A, B, C, D;
 	float * coord = new float[3];
 
 	coord[0] = 0.0f;
@@ -86,23 +86,34 @@ void myOpenGLWidget::makeGLObjects()
 
 	A.set (coord);
 
-	coord[0] = 1.0f;
+
+    coord[0] = 1.0f;
+    coord[1] = 0.0f;
+    coord[2] = 0.0f;
+
+    B.set(coord);
+
+    coord[0] = 1.0f;
     coord[1] = 1.0f;
 	coord[2] = 0.0f;
 
-	B.set(coord);
-
+    C.set(coord);
     //délégation dans le constructeur de l'objet
-    Segment *S = new Segment();
-    //Segment S;
 
-	delete [] coord;
-    segDiscr = new SegmentDiscretisation(S);
-    segDiscr->getSegment()->setStart(A);
-    segDiscr->getSegment()->setEnd(B);
+    Segment *seg = new Segment();
+    seg->setStart(A);
+    seg->setEnd(B);
+
+
+    CourbeParametrique *cou = new CourbeParametrique();
+    cou->addPassage(A);
+    cou->addPassage(B);
+    cou->addPassage(C);
+
+    delete [] coord;
+    //segDiscr = new Discretisation(seg);
+    segDiscr = new Discretisation(cou);
     segDiscr->genVBO();
-
-    qDebug() << segDiscr->getSegment()->getPoint(0.5).getX();
 }
 
 
