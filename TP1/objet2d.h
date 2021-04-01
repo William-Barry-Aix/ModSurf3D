@@ -10,10 +10,11 @@ public:
     ~Objet2D();
     Point getN(unsigned) const;
     void setN(unsigned, const Point&);
+    QList<Point> getPointList();
     virtual Point getPoint(float p) = 0;
     Objet2D& operator= (const Objet2D &o);
-protected:
     QList<Point> * pointList;
+protected:
 };
 
 #endif // OBJET2D_H

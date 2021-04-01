@@ -13,14 +13,16 @@ public:
     Discretisation(Objet2D *segment);
     ~Discretisation();
     Objet2D* getObjet();
-    void initPts();
-    void genVBO();
-    void draw(QOpenGLShaderProgram* m_program, QOpenGLFunctions *glFuncs);
+    //void initPts();
+    //void genVBO();
+    //void draw(QOpenGLShaderProgram* m_program, QOpenGLFunctions *glFuncs);
     QVector<Point> getPoints();
 
 
-    QOpenGLBuffer m_vbo;
-    QVector<GLfloat> vertData;
+    //QOpenGLBuffer m_vbo;
+    //QVector<GLfloat> vertData;
+
+    QVector3D tengente(float t, float e);
 
 };
 

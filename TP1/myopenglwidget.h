@@ -12,7 +12,10 @@
 #include <QOpenGLShaderProgram>
 #include "segment.h"
 #include "discretisation.h"
+#include "discretisation3D.h"
 #include "courbeparametrique.h"
+#include "careauparametrique.h"
+#include "globject.h"
 
 class myOpenGLWidget : public QOpenGLWidget,
 			   protected QOpenGLFunctions
@@ -55,7 +58,7 @@ private:
 
     QOpenGLShaderProgram *m_program;
     QOpenGLBuffer m_vbo;
-    Discretisation *segDiscr;
+    GLObject *segDiscr;
 
 	void makeGLObjects();
 	void tearGLObjects();

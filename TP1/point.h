@@ -26,6 +26,7 @@ public:
     Point operator*(const Point &p);
     Point operator*(const float &p);
     Point operator+(const Point &p);
+    Point operator-(const Point &p);
 
 
 	float getN(unsigned) const;

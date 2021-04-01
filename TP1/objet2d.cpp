@@ -29,3 +29,12 @@ void Objet2D::setN(unsigned r, const Point & p)
         r=1;
     pointList->replace(r,p);
 }
+
+QList<Point> Objet2D::getPointList(){
+
+    QList<Point> list = QList<Point>();
+    for (int i = 0; i < pointList->length(); i++){
+        list.append(pointList->at(i));
+    }
+    return list;
+}

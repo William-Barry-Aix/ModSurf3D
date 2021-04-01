@@ -32,21 +32,29 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+    careauparametrique.cpp \
     courbeparametrique.cpp \
     discretisation.cpp \
+    discretisation3d.cpp \
+    globject.cpp \
         main.cpp \
         mainwindow.cpp \
     myopenglwidget.cpp \
     objet2d.cpp \
+    objet3d.cpp \
     segment.cpp \
     point.cpp
 
 HEADERS += \
+    careauparametrique.h \
     courbeparametrique.h \
     discretisation.h \
+    discretisation3d.h \
+    globject.h \
         mainwindow.h \
     myopenglwidget.h \
     objet2d.h \
+    objet3d.h \
     segment.h \
     point.h
 

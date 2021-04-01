@@ -77,14 +77,14 @@ void myOpenGLWidget::makeGLObjects()
 {
 
 	//1 Nos objets géométriques
-    Point A, B, C, D;
+    Point A, B, C, D, E, F;
 	float * coord = new float[3];
 
-	coord[0] = 0.0f;
+    coord[0] = -1.0f;
 	coord[1] = 0.0f;
 	coord[2] = 0.0f;
 
-	A.set (coord);
+    A.set(coord);
 
 
     coord[0] = 1.0f;
@@ -93,11 +93,17 @@ void myOpenGLWidget::makeGLObjects()
 
     B.set(coord);
 
-    coord[0] = 1.0f;
+    coord[0] = 0.0f;
     coord[1] = 1.0f;
 	coord[2] = 0.0f;
 
     C.set(coord);
+
+    coord[0] = 1.0f;
+    coord[1] = -1.0f;
+    coord[2] = 0.0f;
+
+    D.set(coord);
     //délégation dans le constructeur de l'objet
 
     Segment *seg = new Segment();
@@ -109,10 +115,51 @@ void myOpenGLWidget::makeGLObjects()
     cou->addPassage(A);
     cou->addPassage(B);
     cou->addPassage(C);
+    cou->addPassage(D);
+
+    CareauParametrique *careau = new CareauParametrique();
+    A.setX(-1);
+    A.setY(0);
+    A.setZ(0);
+
+    B.setX(1);
+    B.setY(0);
+    B.setZ(0);
+
+    C.setX(-1);
+    C.setY(1);
+    C.setZ(0.25);
+
+    D.setX(1);
+    D.setY(1);
+    D.setZ(0.25);
+
+    E.setX(-1.5);
+    E.setY(0);
+    E.setZ(0.25);
+
+    F.setX(1.5);
+    F.setY(0);
+    F.setZ(0.25);
+
+    careau->addPassage(0, A);
+    careau->addPassage(0, B);
+    careau->addPassage(1, E);
+    careau->addPassage(1, F);
+    careau->addPassage(2, C);
+    careau->addPassage(2, D);
+
+
+    QList<Point> list = careau->getPointList();
+    for (int i = 0; i < list.length(); i++){
+        Point p = list.at(i);
+        qDebug() << p.getX() << p.getY() << p.getZ();
+    }
 
     delete [] coord;
-    //segDiscr = new Discretisation(seg);
-    segDiscr = new Discretisation(cou);
+    //Discretisation disc = Discretisation(cou);
+    Discretisation3D disc = Discretisation3D(careau);
+    segDiscr = new GLObject(disc.getPoints(), disc.getObjet()->getPointList());
     segDiscr->genVBO();
 }
 

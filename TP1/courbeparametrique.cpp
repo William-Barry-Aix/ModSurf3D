@@ -5,10 +5,7 @@
 
 
 void CourbeParametrique::addPassage(Point point){
-    qDebug() << "oui";
     pointList->append(point);
-    for (int i = 0; i < pointList->length(); i++){
-    }
 }
 
 Point CourbeParametrique::getPoint(float p){
@@ -22,6 +19,8 @@ Point CourbeParametrique::getPoint(float p){
     }
     return point;
 }
+
+
 
 float CourbeParametrique::bernstein(int i, int n, float t){
     float res = factoriel(n)/(factoriel(i)*factoriel(n-i));

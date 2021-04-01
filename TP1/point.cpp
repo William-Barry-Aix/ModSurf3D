@@ -106,6 +106,15 @@ Point Point::operator+(const Point &p){
     return res;
 }
 
+Point Point::operator-(const Point &p){
+    Point res = Point();
+    res.setX(getX()-p.getX());
+    res.setY(getY()-p.getY());
+    res.setZ(getZ()-p.getZ());
+
+    return res;
+}
+
 std::ostream& operator<<(std::ostream& out, const Point& p)
 {
 	return out << "[ " << p.coords[0] << " " << p.coords[1] << " " << p.coords[2] << " ]"; // can access private member Y::data
