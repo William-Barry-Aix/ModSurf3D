@@ -11,7 +11,14 @@ public:
 
     ~Discretisation3D();
     Objet3D* getObjet();
+    QVector<Point> getPoints(QString str);
+
+private:
+    QVector<Point> getPointsTriangles();
+    QVector<Point> getPointsFilaire();
+    QVector<Point> getPointsPleine();
     QVector<Point> getPoints();
+    QVector<QVector<Point>> getMatPoints();
 
 };
 

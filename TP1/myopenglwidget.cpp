@@ -159,7 +159,12 @@ void myOpenGLWidget::makeGLObjects()
     delete [] coord;
     //Discretisation disc = Discretisation(cou);
     Discretisation3D disc = Discretisation3D(careau);
-    segDiscr = new GLObject(disc.getPoints(), disc.getObjet()->getPointList());
+
+    //QString mode = "triangles";
+    //QString mode = "filaire";
+    QString mode = "pleine";
+    segDiscr = new GLObject(disc.getPoints(mode), disc.getObjet()->getPointList(), mode);
+
     segDiscr->genVBO();
 }
 

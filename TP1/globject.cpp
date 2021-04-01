@@ -3,6 +3,13 @@
 GLObject::GLObject(QVector<Point> points, QList<Point> controlPts){
     this->points = points;
     this->controlPts = controlPts;
+    this->mode = "";
+}
+
+GLObject::GLObject(QVector<Point> points, QList<Point> controlPts, QString mode){
+    this->points = points;
+    this->controlPts = controlPts;
+    this->mode = mode;
 }
 
 void GLObject::genVBO(){
@@ -65,7 +72,6 @@ void GLObject::initPts(){
     }
 
 
-
     //destruction des éléments de la phase 2
     delete [] vertices;
     delete [] colorRed;
@@ -82,7 +88,16 @@ void GLObject::draw(QOpenGLShaderProgram* m_program, QOpenGLFunctions *glFuncs){
     m_program->enableAttributeArray("colAttr");
 
     glPointSize (3.0f);
-    glFuncs->glDrawArrays(GL_POINTS, 0, vertData.length());
+    //glFuncs->glDrawArrays(GL_POINTS, 0, points.length()-controlPts.length());
+    if (mode.compare("triangles") == 0)
+        glFuncs->glDrawArrays(GL_LINES, 0, points.length()-controlPts.length());
+    else if (mode.compare("filaire") == 0)
+        glFuncs->glDrawArrays(GL_LINES, 0, points.length()-controlPts.length());
+    else if (mode.compare("pleine") == 0)
+        glFuncs->glDrawArrays(GL_TRIANGLES, 0, points.length()-controlPts.length());
+
+    glFuncs->glDrawArrays(GL_POINTS, points.length()-controlPts.length(), controlPts.length());
+
 
     m_program->disableAttributeArray("posAttr");
     m_program->disableAttributeArray("colAttr");
@@ -90,3 +105,4 @@ void GLObject::draw(QOpenGLShaderProgram* m_program, QOpenGLFunctions *glFuncs){
     m_vbo.release();
     qDebug() << "displayed";
 }
+

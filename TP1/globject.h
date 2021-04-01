@@ -11,6 +11,7 @@ class GLObject
 {
 public:
     GLObject(QVector<Point> points, QList<Point> controlPts);
+    GLObject(QVector<Point> points, QList<Point> controlPts, QString mode);
     void initPts();
     void genVBO();
     void draw(QOpenGLShaderProgram* m_program, QOpenGLFunctions *glFuncs);
@@ -19,6 +20,7 @@ public:
     QList<Point> controlPts;
     QOpenGLBuffer m_vbo;
     QVector<GLfloat> vertData;
+    QString mode;
 };
 
 #endif // GLOBJECT_H
