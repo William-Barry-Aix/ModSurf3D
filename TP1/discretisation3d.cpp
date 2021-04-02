@@ -44,7 +44,6 @@ QVector<Point> Discretisation3D::getPointsPleine(){
             points.append(ptsMat.at(i).at(j+1));
         }
     }
-
     return points;
 }
 

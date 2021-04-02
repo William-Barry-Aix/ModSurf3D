@@ -12,7 +12,7 @@
 #include <QOpenGLShaderProgram>
 #include "segment.h"
 #include "discretisation.h"
-#include "discretisation3D.h"
+#include "discretisation3d.h"
 #include "courbeparametrique.h"
 #include "careauparametrique.h"
 #include "globject.h"
@@ -27,6 +27,9 @@ public:
 	~myOpenGLWidget();
 
 public slots:
+    void setAngleXVal(int value);
+    void setAngleYVal(int value);
+    void setSlider(float value);
 
 signals:  // On ne les implémente pas, elles seront générées par MOC ;
 		  // les paramètres seront passés aux slots connectés.
@@ -46,10 +49,10 @@ protected:
 	void mouseMoveEvent(QMouseEvent *ev) override;
 
 private:
-	double m_angle = 0;
+	double m_angleY = 0;
+    double m_angleX = 0;
 	QTimer *m_timer = nullptr;
 	double m_ratio = 1;
-
 
 	//RR matrices utiles
 	QMatrix4x4 m_modelView;

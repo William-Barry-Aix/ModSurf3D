@@ -42,6 +42,10 @@ SOURCES += \
     myopenglwidget.cpp \
     objet2d.cpp \
     objet3d.cpp \
+    option.cpp \
+    polyset.cpp \
+    polysize.cpp \
+    ptsvalue.cpp \
     segment.cpp \
     point.cpp
 
@@ -55,12 +59,23 @@ HEADERS += \
     myopenglwidget.h \
     objet2d.h \
     objet3d.h \
+    option.h \
+    polyset.h \
+    polysize.h \
+    ptsvalue.h \
     segment.h \
     point.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+        option.ui \
+        polyset.ui \
+        polysize.ui \
+        ptsvalue.ui
 
 DISTFILES += \
     basic.fsh \
     basic.vsh
+
+RESOURCES += \
+    shaders.qrc
