@@ -106,3 +106,32 @@ void GLObject::draw(QOpenGLShaderProgram* m_program, QOpenGLFunctions *glFuncs){
     qDebug() << "displayed";
 }
 
+void GLObject::exportOBJ(){
+    int n = points.length()-controlPts.length();
+    QMap<int, Point> vertexMap = QMap<int, Point>();
+    QList<Point> vertexes = QList<Point>();
+    QList<QList<int>> faces = QList<QList<int>>();
+    QList<int> faceTmp = QList<int>();
+    int sizeFace = 1;
+    if (mode.compare("triangles") == 0){
+        sizeFace = 3;
+    }
+
+    for (int i = 0; i < n; i++){
+        Point px = points.at(i);
+        qDebug() << px.id;
+        if (vertexMap.contains(px.id) == false){
+            vertexMap.insert(px.id, px);
+            vertexes.append(px);
+        }
+        faceTmp.append(px.id);
+        if (i%sizeFace == 0){
+            faces.append(faceTmp);
+            faceTmp = QList<int>();
+        }
+    }
+    for (int i = 0; i < vertexes.length(); i++){
+        Point px = vertexes.at(i);
+        qDebug() << "v" << px.getX() << px.getY() << px.getZ();
+    }
+}

@@ -15,11 +15,14 @@ Objet3D* Discretisation3D::getObjet(){
 
 QVector<Point> Discretisation3D::getPoints(){
     QVector<Point> points = QVector<Point>();
+    int ptsCount = 0;
 
     for (float i = 0; i <= 1; i+=0.25){
         for (float j = 0; j <= 1; j+=0.25){
             Point point = objet->getPoint(i, j);
+            point.setId(ptsCount);
             points.append(point);
+            ptsCount++;
         }
     }
     return points;
@@ -105,13 +108,19 @@ QVector<Point> Discretisation3D::getPoints(QString str){
 QVector<QVector<Point>> Discretisation3D::getMatPoints(){
     QVector<QVector<Point>> ptsMat = QVector<QVector<Point>>();
     QVector<Point> ptsTmp;
+    int ptsCount = 0;
     for (float i = 0; i <= 1; i+=0.25){
         ptsTmp = QVector<Point>();
         for (float j = 0; j <= 1; j+=0.25){
             Point point = objet->getPoint(i, j);
+            point.setId(ptsCount);
+            qDebug() << "id" << point.id;
             ptsTmp.append(point);
         }
         ptsMat.append(ptsTmp);
+    }
+    for (int i = 0; i < ptsMat.length(); i++){
+        qDebug() << "id="<<ptsMat.at(i).at(0).id;
     }
     return ptsMat;
 }

@@ -15,6 +15,7 @@ public:
     void initPts();
     void genVBO();
     void draw(QOpenGLShaderProgram* m_program, QOpenGLFunctions *glFuncs);
+    void exportOBJ();
 
     QVector<Point> points = QVector<Point>();
     QList<Point> controlPts;

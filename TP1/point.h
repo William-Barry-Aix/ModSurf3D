@@ -27,6 +27,7 @@ public:
     Point operator*(const float &p);
     Point operator+(const Point &p);
     Point operator-(const Point &p);
+    int id;
 
 
 	float getN(unsigned) const;
@@ -35,6 +36,8 @@ public:
 	float getZ() const ;
 	void get(float *) const;
 
+
+    void setId(int id);
 	void setN(unsigned, const float&);
 	void setX(const float&);
 	void setY(const float&);

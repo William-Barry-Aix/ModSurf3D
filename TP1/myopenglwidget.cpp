@@ -166,6 +166,7 @@ void myOpenGLWidget::makeGLObjects()
     segDiscr = new GLObject(disc.getPoints(mode), disc.getObjet()->getPointList(), mode);
 
     segDiscr->genVBO();
+    segDiscr->exportOBJ();
 }
 
 

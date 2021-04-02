@@ -2,7 +2,8 @@
 
 Point::Point()
 {
-	coords = new float[3];
+    this->coords = new float[3];
+    this->id = 0;
 }
 
 Point::~Point()
@@ -39,6 +40,9 @@ void Point::get(float * t) const
 		t[i] = coords[i];
 }
 
+void Point::setId(int id){
+    this->id = id;
+}
 float Point::getN(unsigned r) const
 {
 	if (r>2)
