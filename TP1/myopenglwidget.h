@@ -24,15 +24,13 @@ class myOpenGLWidget : public QOpenGLWidget,
 	Q_OBJECT
 
 public:
-    myOpenGLWidget(QWidget *parent = nullptr, int step = 10, QString mode = nullptr);
+    myOpenGLWidget(QWidget *parent = nullptr, Point points[] = NULL, int n = 0, int m = 0, int step = 10, QString mode = nullptr);
 	~myOpenGLWidget();
-    CarreauParametrique *carreau;
+    CarreauParametrique *carreau = new CarreauParametrique;
     void setAngleXVal(int value);
     void setAngleYVal(int value);
     void setSlider(float value);
-    Point m_points;
-    int m_step;
-    QString m_mode;
+
     CarreauParametrique* sampleCarreau();
 
 signals:  // On ne les implémente pas, elles seront générées par MOC ;
@@ -53,8 +51,16 @@ protected:
 	void mouseMoveEvent(QMouseEvent *ev) override;
 
 private:
-	double m_angleY = 0;
-    double m_angleX = 0;
+    Point *m_points;
+    int N;
+    int M;
+    int m_step;
+    QString m_mode;
+
+    int Y = 0;
+    int X = 0;
+    int m_angleX = 0;
+    int m_angleY = 0;
 	QTimer *m_timer = nullptr;
 	double m_ratio = 1;
 

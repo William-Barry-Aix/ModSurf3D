@@ -14,8 +14,8 @@ static const QString vertexShaderFile   = ":/basic.vsh";
 static const QString fragmentShaderFile = ":/basic.fsh";
 
 
-myOpenGLWidget::myOpenGLWidget(QWidget *parent, int step, QString mode) :
-    QOpenGLWidget(parent), m_step(step), m_mode(mode)
+myOpenGLWidget::myOpenGLWidget(QWidget *parent, Point points[], int n, int m, int step, QString mode) :
+    QOpenGLWidget(parent), m_points(points), N(n), M(m), m_step(step), m_mode(mode)
 {
     qDebug() << "init myOpenGLWidget" ;
 	QSurfaceFormat sf;
@@ -118,8 +118,14 @@ void myOpenGLWidget::makeGLObjects()
     cou->addPassage(D);*/
 
     //sample
-    //if(carreau == NULL)
-    carreau = sampleCarreau();
+    //carreau = sampleCarreau();
+    //qDebug() << p.getX() << p.getY() << p.getZ();
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            carreau->addPassage(j, m_points[i*M+j]);
+        }
+    }
 
     QList<Point> list = carreau->getPointList();
     for (int i = 0; i < list.length(); i++){
@@ -219,8 +225,10 @@ void myOpenGLWidget::paintGL()
 		//m_model.translate(0, 0, -3.0);
 
 		// Rotation de la scène pour l'animation
-        m_model.rotate(m_angleY, 0, 1, 0);  //rotation de la scène sur l'axe y
-        m_model.rotate(m_angleX, 1, 0, 0);  //rotation de la scène sur l'axe x
+        m_model.rotate(Y, 0, 1, 0);  //rotation de la scène sur l'axe y
+        m_model.rotate(X, 1, 0, 0);  //rotation de la scène sur l'axe x
+        Y = 0;
+        X = 0;
 
 		QMatrix4x4 m = m_projection * m_modelView * m_model;
 	///----------------------------
@@ -248,8 +256,8 @@ void myOpenGLWidget::keyPressEvent(QKeyEvent *ev)
 
 	switch(ev->key()) {
 		case Qt::Key_Z :
-            m_angleY += 1;
-            if (m_angleY >= 360) m_angleY -= 360;
+            Y += 1;
+            if (Y >= 360) Y -= 360;
 			update();
 			break;
 		case Qt::Key_A :
@@ -290,20 +298,36 @@ void myOpenGLWidget::onTimeout()
 }
 
 void myOpenGLWidget::setAngleXVal(int value){
-    m_angleX = value;
     qDebug() << "La valeur de l'angle de vue en x est maintenant : " << m_angleX;
-    update();
+    while (m_angleX != value) {
+        if(value > m_angleX){
+            X = 1;
+            m_angleX += X ;
+        } else {
+            X = -1;
+            m_angleX += X ;
+        }
+        update();
+    }
 }
 
 void myOpenGLWidget::setAngleYVal(int value){
-    m_angleY = value;
-    qDebug() << "La valeur de l'angle de vue en y est maintenant : " << m_angleY;
-    update();
+    qDebug() << "La valeur de l'angle de vue en x est maintenant : " << m_angleX;
+    while (m_angleY != value) {
+        if(value > m_angleY){
+            Y = 1;
+            m_angleY += Y ;
+        } else {
+            Y = -1;
+            m_angleY += Y ;
+        }
+        update();
+    }
 }
 
 void myOpenGLWidget::setSlider(float value){
     //pas = value;
-    qDebug() << "La valeur de l'angle de vue en y est maintenant : " << m_angleY;
+    qDebug() << "La valeur du pas est maintenant : " << value;
     update();
 }
 

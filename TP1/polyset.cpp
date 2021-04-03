@@ -20,7 +20,7 @@ void polySet::generateGrid(int n, int m){
         hbox[i] = new QHBoxLayout;
         verticalLayout->addLayout(hbox[i]);
         for (int j = 0; j < m; j++) {
-            pos = i*n+j;
+            pos = i*m+j;
             pts[pos] = new ptsValue(this);
             pts[pos]->initName(pos);
             hbox[i]->addWidget(pts[pos]);
@@ -34,8 +34,8 @@ void polySet::on_buttonBox_accepted()
     Point points[N*M];
     int pos;
     for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            pos = i*N+j;
+        for (int j = 0; j < M; j++) {
+            pos = i*M+j;
             points[pos] = pts[pos]->getPoint();
         }
     }

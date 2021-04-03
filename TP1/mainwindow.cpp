@@ -29,7 +29,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     step = 10;
 
-    myopenglwidget = new myOpenGLWidget(this, step, mode);
+    points[0] = pointSample(-1,0,0);//A
+    points[3] = pointSample(1,0,0);//B
+    points[1] = pointSample(-1.5,0,0.25);//E
+    points[4] = pointSample(1.5,0,0.25);//F
+    points[2] = pointSample(-1,1,0.25);//C
+    points[5] = pointSample(1,1,0.25);//D
+
+    myopenglwidget = new myOpenGLWidget(this, points, n, m, step, mode);
     ui->verticalLayout->addWidget(myopenglwidget);
 }
 
@@ -44,9 +51,17 @@ void MainWindow::on_pushButton_3_pressed()
 }
 
 void MainWindow::newOpenGLWidget(){
-    myopenglwidget = new myOpenGLWidget(this, step, mode);
+    myopenglwidget = new myOpenGLWidget(this, points, n, m, step, mode);
     ui->verticalLayout->addWidget(myopenglwidget);
     delete ui->verticalLayout->takeAt(1);
+}
+
+Point MainWindow::pointSample(float x, float y, float z){
+    Point pointTMP;
+    pointTMP.setX(x);
+    pointTMP.setY(y);
+    pointTMP.setZ(z);
+    return pointTMP;
 }
 
 void MainWindow::setPoly(int n, int m)
@@ -55,7 +70,7 @@ void MainWindow::setPoly(int n, int m)
     polyset = new polySet(this);
     polyset->generateGrid(n, m);
     polyset->setWindowTitle("Coordonné du Polyedre");
-    connect(polyset, SIGNAL(polySetConfirmed(Point,int,int)),this, SLOT(process(Point,int,int)));
+    connect(polyset, SIGNAL(polySetConfirmed(Point[],int,int)),this, SLOT(process(Point[],int,int)));
 
     polyset->show();
 }
@@ -68,7 +83,7 @@ void MainWindow::setMode(QString arg){
 
 void MainWindow::setAngleXVal(int value){
     qDebug() << __FUNCTION__ ;
-    myopenglwidget->setAngleYVal(value);
+    myopenglwidget->setAngleXVal(value);
     myopenglwidget->update();
 }
 
@@ -84,9 +99,18 @@ void MainWindow::setSlider(int value){
     newOpenGLWidget();
 }
 
-void MainWindow::process(Point points[],int N,int M){
+void MainWindow::process(Point pointss[],int N,int M){
     qDebug() << __FUNCTION__ ;
-    //ui->openGLWidget->newGlObject(points,N,M);
+    int pos;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            pos = i*M+j;
+            points[pos] = pointss[pos];
+        }
+    }
+    m = N;
+    m = M;
+    newOpenGLWidget();
 }
 
 void MainWindow::on_pushButton_2_pressed()
