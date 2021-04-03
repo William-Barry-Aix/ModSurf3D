@@ -16,6 +16,7 @@
 #include "courbeparametrique.h"
 #include "careauparametrique.h"
 #include "globject.h"
+#include <QString>
 
 class myOpenGLWidget : public QOpenGLWidget,
 			   protected QOpenGLFunctions
@@ -23,13 +24,16 @@ class myOpenGLWidget : public QOpenGLWidget,
 	Q_OBJECT
 
 public:
-	explicit myOpenGLWidget(QWidget *parent = nullptr);
+    myOpenGLWidget(QWidget *parent = nullptr, int step = 10, QString mode = nullptr);
 	~myOpenGLWidget();
-
-public slots:
+    CarreauParametrique *carreau;
     void setAngleXVal(int value);
     void setAngleYVal(int value);
     void setSlider(float value);
+    Point m_points;
+    int m_step;
+    QString m_mode;
+    CarreauParametrique* sampleCarreau();
 
 signals:  // On ne les implémente pas, elles seront générées par MOC ;
 		  // les paramètres seront passés aux slots connectés.

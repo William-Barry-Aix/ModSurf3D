@@ -2,7 +2,7 @@
 #include <math.h>       /* pow */
 #include <QDebug>
 
-Point CareauParametrique::getPoint(float u, float v){
+Point CarreauParametrique::getPoint(float u, float v){
     int n = pointList->length();
     int m = pointList->at(0)->length();
     Point point;
@@ -21,20 +21,20 @@ Point CareauParametrique::getPoint(float u, float v){
 }
 
 
-void CareauParametrique::addPassage(int u, Point point){
+void CarreauParametrique::addPassage(int u, Point point){
     if (u > pointList->length()-1)
         pointList->append(new QList<Point>());
     pointList->at(u)->append(point);
 
 }
 
-float CareauParametrique::bernstein(int i, int n, float t){
+float CarreauParametrique::bernstein(int i, int n, float t){
     float res = factoriel(n)/(factoriel(i)*factoriel(n-i));
     res = res * pow(t, i);
     res = res * pow(1-t, (n-i));
     return res;
 }
 
-long CareauParametrique::factoriel(int n) {
+long CarreauParametrique::factoriel(int n) {
    return n > 1?(n * factoriel(n-1)):1;
 }

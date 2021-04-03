@@ -59,25 +59,11 @@
        </item>
       </layout>
      </item>
-     <item>
-      <widget class="myOpenGLWidget" name="openGLWidget">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
     </layout>
    </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>myOpenGLWidget</class>
-   <extends>QOpenGLWidget</extends>
-   <header location="global">myopenglwidget.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

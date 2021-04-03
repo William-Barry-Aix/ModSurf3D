@@ -24,7 +24,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>161</width>
+     <width>171</width>
      <height>121</height>
     </rect>
    </property>
@@ -64,7 +64,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_3"/>
+         <widget class="QLineEdit" name="textX"/>
         </item>
        </layout>
       </item>
@@ -82,7 +82,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_2"/>
+         <widget class="QLineEdit" name="textY"/>
         </item>
        </layout>
       </item>
@@ -98,7 +98,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit"/>
+           <widget class="QLineEdit" name="textZ"/>
           </item>
          </layout>
         </item>

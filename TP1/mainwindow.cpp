@@ -15,20 +15,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     polysize->setWindowTitle("Taille du Polyedre");
-    polyset->setWindowTitle("Coordonné du Polyedre");
     opt->setWindowTitle("Réglages");
 
     polysize->hide();
-    polyset->hide();
     opt->hide();
 
     connect(polysize, SIGNAL(polySizeConfirmed(int,int)),this, SLOT(setPoly(int, int)));
-    //connect(polyset, SIGNAL(polySetConfirmed(ptsValue,int,int)),this, SLOT(process(ptsValue,int,int)));
 
-    connect(opt, SIGNAL(on_comboBox_currentIndexChanged(const QString)),this, SLOT());
-    connect(opt, SIGNAL(on_angleXslider_sliderMoved(int)),this, SLOT(setAngleXVal(int)));
-    connect(opt, SIGNAL(on_angleYslider_sliderMoved(int)),this, SLOT(setAngleYVal(int)));
-    connect(opt, SIGNAL(on_pasSlider_sliderMoved(int)),this, SLOT(setSlider(int)));
+    connect(opt, SIGNAL(comboBoxChanged(QString)),this, SLOT(setMode(QString)));
+    connect(opt, SIGNAL(angleXsliderChanged(int)),this, SLOT(setAngleXVal(int)));
+    connect(opt, SIGNAL(angleYsliderChanged(int)),this, SLOT(setAngleYVal(int)));
+    connect(opt, SIGNAL(pasSliderChanged(int)),this, SLOT(setSlider(int)));
+
+    step = 10;
+
+    myopenglwidget = new myOpenGLWidget(this, step, mode);
+    ui->verticalLayout->addWidget(myopenglwidget);
 }
 
 MainWindow::~MainWindow()
@@ -41,26 +43,51 @@ void MainWindow::on_pushButton_3_pressed()
     polysize->show();
 }
 
+void MainWindow::newOpenGLWidget(){
+    myopenglwidget = new myOpenGLWidget(this, step, mode);
+    ui->verticalLayout->addWidget(myopenglwidget);
+    delete ui->verticalLayout->takeAt(1);
+}
+
 void MainWindow::setPoly(int n, int m)
 {
     qDebug() << __FUNCTION__;
+    polyset = new polySet(this);
     polyset->generateGrid(n, m);
+    polyset->setWindowTitle("Coordonné du Polyedre");
+    connect(polyset, SIGNAL(polySetConfirmed(Point,int,int)),this, SLOT(process(Point,int,int)));
+
     polyset->show();
 }
 
+void MainWindow::setMode(QString arg){
+    qDebug() << __FUNCTION__ ;
+    mode = arg;
+    newOpenGLWidget();
+}
+
 void MainWindow::setAngleXVal(int value){
-    ui->openGLWidget->setAngleYVal(value);
+    qDebug() << __FUNCTION__ ;
+    myopenglwidget->setAngleYVal(value);
+    myopenglwidget->update();
 }
 
 void MainWindow::setAngleYVal(int value){
-    ui->openGLWidget->setAngleYVal(value);
+    qDebug() << __FUNCTION__ ;
+    myopenglwidget->setAngleYVal(value);
+    myopenglwidget->update();
 }
 
 void MainWindow::setSlider(int value){
-    ui->openGLWidget->setSlider(value);
+    qDebug() << __FUNCTION__ ;
+    step = value;
+    newOpenGLWidget();
 }
 
-
+void MainWindow::process(Point points[],int N,int M){
+    qDebug() << __FUNCTION__ ;
+    //ui->openGLWidget->newGlObject(points,N,M);
+}
 
 void MainWindow::on_pushButton_2_pressed()
 {

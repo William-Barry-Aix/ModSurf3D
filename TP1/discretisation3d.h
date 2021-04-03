@@ -7,7 +7,7 @@ class Discretisation3D
 {
 public:    
     Objet3D *objet;
-    Discretisation3D(Objet3D *objet);
+    Discretisation3D(Objet3D *objet, float step);
 
     ~Discretisation3D();
     Objet3D* getObjet();
@@ -19,7 +19,7 @@ private:
     QVector<Point> getPointsPleine();
     QVector<Point> getPoints();
     QVector<QVector<Point>> getMatPoints();
-
+    float step;
 };
 
 #endif // DISCRETISATION3D_H

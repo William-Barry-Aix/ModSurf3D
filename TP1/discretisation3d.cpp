@@ -1,6 +1,7 @@
 #include "discretisation3d.h"
 
-Discretisation3D::Discretisation3D(Objet3D *objet)
+Discretisation3D::Discretisation3D(Objet3D *objet, float m_step):
+    step(m_step)
 {
     this->objet = objet;
 }
@@ -17,8 +18,8 @@ QVector<Point> Discretisation3D::getPoints(){
     QVector<Point> points = QVector<Point>();
     int ptsCount = 0;
 
-    for (float i = 0; i <= 1; i+=0.25){
-        for (float j = 0; j <= 1; j+=0.25){
+    for (float i = 0; i <= 1; i+=step){
+        for (float j = 0; j <= 1; j+=step){
             Point point = objet->getPoint(i, j);
             point.setId(ptsCount);
             points.append(point);
@@ -109,9 +110,9 @@ QVector<QVector<Point>> Discretisation3D::getMatPoints(){
     QVector<QVector<Point>> ptsMat = QVector<QVector<Point>>();
     QVector<Point> ptsTmp;
     int ptsCount = 0;
-    for (float i = 0; i <= 1; i+=0.25){
+    for (float i = 0; i <= 1; i+=step){
         ptsTmp = QVector<Point>();
-        for (float j = 0; j <= 1; j+=0.25){
+        for (float j = 0; j <= 1; j+=step){
             Point point = objet->getPoint(i, j);
             point.setId(ptsCount);
             qDebug() << "id" << point.id;

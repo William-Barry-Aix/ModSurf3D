@@ -8,17 +8,22 @@ polySet::polySet(QWidget *parent) :
 }
 
 void polySet::generateGrid(int n, int m){
+    while(!verticalLayout->isEmpty()) {
+      delete verticalLayout->takeAt(0);
+    }
+
     //init
-    int size = n*m;
     N = n;
     M = m;
-    //pts = (ptsValue*) malloc(size * sizeof (ptsValue));
-    ptsValue *pts[size];
+    int pos;
     for (int i = 0; i < n; i++) {
+        hbox[i] = new QHBoxLayout;
+        verticalLayout->addLayout(hbox[i]);
         for (int j = 0; j < m; j++) {
-            pts[size] = new ptsValue(this);
-            pts[size]->initName(i * n + j);
-            gridLayout->addWidget(pts[size],i,j);
+            pos = i*n+j;
+            pts[pos] = new ptsValue(this);
+            pts[pos]->initName(pos);
+            hbox[i]->addWidget(pts[pos]);
         }
     }
 }
@@ -26,5 +31,13 @@ void polySet::generateGrid(int n, int m){
 void polySet::on_buttonBox_accepted()
 {
     qDebug() << __FUNCTION__;
-    //emit polySetConfirmed(pts, N, M);
+    Point points[N*M];
+    int pos;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            pos = i*N+j;
+            points[pos] = pts[pos]->getPoint();
+        }
+    }
+    emit polySetConfirmed(points, N, M);
 }

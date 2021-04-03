@@ -14,7 +14,7 @@ public:
     void setValue(int angleX, int angleY, float pas);
 
 signals:
-    void comboBoxChanged(const QString arg1);
+    void comboBoxChanged(QString arg1);
     void angleXsliderChanged(int position);
     void angleYsliderChanged(int position);
     void pasSliderChanged(int position);

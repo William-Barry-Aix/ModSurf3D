@@ -5,10 +5,10 @@
 #include "point.h"
 #include "objet3d.h"
 
-class CareauParametrique : public Objet3D
+class CarreauParametrique : public Objet3D
 {
 public:
-    CareauParametrique(): Objet3D(){}
+    CarreauParametrique(): Objet3D(){}
 
     virtual Point getPoint(float u, float v);
     void addPassage(int y, Point point);

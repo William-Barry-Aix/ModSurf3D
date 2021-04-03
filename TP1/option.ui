@@ -72,13 +72,6 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QLabel" name="angleXval">
-        <property name="text">
-         <string>val</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
     <item>
@@ -100,13 +93,6 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QLabel" name="angleYval">
-        <property name="text">
-         <string>val</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
     <item>
@@ -120,15 +106,14 @@
       </item>
       <item>
        <widget class="QSlider" name="pasSlider">
+        <property name="minimum">
+         <number>7</number>
+        </property>
+        <property name="maximum">
+         <number>39</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="pasVal">
-        <property name="text">
-         <string>val</string>
         </property>
        </widget>
       </item>

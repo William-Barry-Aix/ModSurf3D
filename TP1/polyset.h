@@ -4,6 +4,8 @@
 #include "ui_polyset.h"
 #include <QtDebug>
 #include "ptsvalue.h"
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 class polySet : public QDialog, private Ui::polySet
 {
@@ -14,12 +16,14 @@ public:
     void generateGrid(int n, int m);
     //ptsValue *pts;
     int N, M;
+    ptsValue *pts[60];
+    QHBoxLayout *hbox[];
 
 private slots:
     void on_buttonBox_accepted();
 
 signals :
-    //void polySetConfirmed(ptsValue *pts, int N, int M);
+    void polySetConfirmed(Point points[], int N, int M);
 };
 
 #endif // POLYSET_H

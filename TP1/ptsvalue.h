@@ -2,6 +2,7 @@
 #define PTSVALUE_H
 
 #include "ui_ptsvalue.h"
+#include "point.h"
 
 class ptsValue : public QGroupBox, private Ui::ptsValue
 {
@@ -10,6 +11,8 @@ class ptsValue : public QGroupBox, private Ui::ptsValue
 public:
     explicit ptsValue(QWidget *parent = nullptr);
     void initName(int pos);
+    Point getPoint();
+
 };
 
 #endif // PTSVALUE_H

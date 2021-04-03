@@ -14,8 +14,8 @@ static const QString vertexShaderFile   = ":/basic.vsh";
 static const QString fragmentShaderFile = ":/basic.fsh";
 
 
-myOpenGLWidget::myOpenGLWidget(QWidget *parent) :
-	QOpenGLWidget(parent)
+myOpenGLWidget::myOpenGLWidget(QWidget *parent, int step, QString mode) :
+    QOpenGLWidget(parent), m_step(step), m_mode(mode)
 {
     qDebug() << "init myOpenGLWidget" ;
 	QSurfaceFormat sf;
@@ -75,7 +75,7 @@ void myOpenGLWidget::doProjection()
 
 void myOpenGLWidget::makeGLObjects()
 {
-
+    /*
 	//1 Nos objets géométriques
     Point A, B, C, D, E, F;
 	float * coord = new float[3];
@@ -106,18 +106,44 @@ void myOpenGLWidget::makeGLObjects()
     D.set(coord);
     //délégation dans le constructeur de l'objet
 
+
     Segment *seg = new Segment();
     seg->setStart(A);
     seg->setEnd(B);
-
 
     CourbeParametrique *cou = new CourbeParametrique();
     cou->addPassage(A);
     cou->addPassage(B);
     cou->addPassage(C);
-    cou->addPassage(D);
+    cou->addPassage(D);*/
 
-    CareauParametrique *careau = new CareauParametrique();
+    //sample
+    //if(carreau == NULL)
+    carreau = sampleCarreau();
+
+    QList<Point> list = carreau->getPointList();
+    for (int i = 0; i < list.length(); i++){
+        Point p = list.at(i);
+        qDebug() << p.getX() << p.getY() << p.getZ();
+    }
+
+    //Discretisation disc = Discretisation(cou);
+    float real_step = (float)m_step/100;
+
+    Discretisation3D disc = Discretisation3D(carreau, real_step);
+
+
+    segDiscr = new GLObject(disc.getPoints(m_mode), disc.getObjet()->getPointList(), m_mode);
+
+    segDiscr->genVBO();
+    segDiscr->exportOBJ();
+}
+
+CarreauParametrique* myOpenGLWidget::sampleCarreau(){
+    //1 Nos points de controls
+    Point A, B, C, D, E, F;
+
+    CarreauParametrique *carreau = new CarreauParametrique;
     A.setX(-1);
     A.setY(0);
     A.setZ(0);
@@ -142,33 +168,15 @@ void myOpenGLWidget::makeGLObjects()
     F.setY(0);
     F.setZ(0.25);
 
-    careau->addPassage(0, A);
-    careau->addPassage(0, B);
-    careau->addPassage(1, E);
-    careau->addPassage(1, F);
-    careau->addPassage(2, C);
-    careau->addPassage(2, D);
+    carreau->addPassage(0, A);
+    carreau->addPassage(0, B);
+    carreau->addPassage(1, E);
+    carreau->addPassage(1, F);
+    carreau->addPassage(2, C);
+    carreau->addPassage(2, D);
 
-
-    QList<Point> list = careau->getPointList();
-    for (int i = 0; i < list.length(); i++){
-        Point p = list.at(i);
-        qDebug() << p.getX() << p.getY() << p.getZ();
-    }
-
-    delete [] coord;
-    //Discretisation disc = Discretisation(cou);
-    Discretisation3D disc = Discretisation3D(careau);
-
-    //QString mode = "triangles";
-    //QString mode = "filaire";
-    QString mode = "pleine";
-    segDiscr = new GLObject(disc.getPoints(mode), disc.getObjet()->getPointList(), mode);
-
-    segDiscr->genVBO();
-    segDiscr->exportOBJ();
+    return carreau;
 }
-
 
 void myOpenGLWidget::tearGLObjects()
 {
