@@ -30,6 +30,8 @@ public:
     void setAngleXVal(int value);
     void setAngleYVal(int value);
     void setSlider(float value);
+    GLObject *segDiscr;
+
 
     CarreauParametrique* sampleCarreau();
 
@@ -71,7 +73,6 @@ private:
 
     QOpenGLShaderProgram *m_program;
     QOpenGLBuffer m_vbo;
-    GLObject *segDiscr;
 
 	void makeGLObjects();
 	void tearGLObjects();

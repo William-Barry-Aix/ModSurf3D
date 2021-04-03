@@ -36,7 +36,7 @@ public:
 	float getZ() const ;
 	void get(float *) const;
 
-
+    static int nbPts;
     void setId(int id);
 	void setN(unsigned, const float&);
 	void setX(const float&);
@@ -47,4 +47,6 @@ public:
     friend std::ostream& operator<<(std::ostream&, const Point&);
 };
 
+
+//Point::nbPts = 0;
 #endif // POINT_H

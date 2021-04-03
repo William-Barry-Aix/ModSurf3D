@@ -1,9 +1,12 @@
 #include "point.h"
+int Point::nbPts = -1;
 
 Point::Point()
 {
     this->coords = new float[3];
-    this->id = 0;
+    id = Point::nbPts;
+    Point::nbPts++;
+
 }
 
 Point::~Point()

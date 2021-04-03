@@ -7,6 +7,7 @@
 #include "polyset.h"
 #include "ptsvalue.h"
 #include "option.h"
+#include <unistd.h>
 
 namespace Ui {
 class MainWindow;
@@ -34,6 +35,8 @@ private slots:
 
 
     void on_pushButton_2_pressed();
+
+    void on_pushButton_pressed();
 
 private:
     Ui::MainWindow *ui;

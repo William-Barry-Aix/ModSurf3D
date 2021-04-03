@@ -107,21 +107,33 @@ QVector<Point> Discretisation3D::getPoints(QString str){
 }
 
 QVector<QVector<Point>> Discretisation3D::getMatPoints(){
+    qDebug() << __FUNCTION__ ;
     QVector<QVector<Point>> ptsMat = QVector<QVector<Point>>();
     QVector<Point> ptsTmp;
-    int ptsCount = 0;
+
     for (float i = 0; i <= 1; i+=step){
         ptsTmp = QVector<Point>();
         for (float j = 0; j <= 1; j+=step){
             Point point = objet->getPoint(i, j);
-            point.setId(ptsCount);
-            qDebug() << "id" << point.id;
+            //point.setId(ptsCount);
+            qDebug() <<" id :" << point.id;
             ptsTmp.append(point);
         }
         ptsMat.append(ptsTmp);
     }
+
+    double ptsCount = 0;
     for (int i = 0; i < ptsMat.length(); i++){
-        qDebug() << "id="<<ptsMat.at(i).at(0).id;
+        for(int j = 0; j < ptsMat.at(i).length(); j++){
+
+            QVector<Point> vpx = ptsMat.at(i);
+            Point px = vpx.at(j);
+            px.setId(ptsCount);
+            ptsCount++;
+            vpx.replace(j,px);
+            ptsMat.replace(i,vpx);
+            qDebug() << ptsCount << " ptsmatID ="<<ptsMat.at(i).at(j).id;
+        }
     }
     return ptsMat;
 }

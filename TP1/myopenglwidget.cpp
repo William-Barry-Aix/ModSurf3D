@@ -142,7 +142,6 @@ void myOpenGLWidget::makeGLObjects()
     segDiscr = new GLObject(disc.getPoints(m_mode), disc.getObjet()->getPointList(), m_mode);
 
     segDiscr->genVBO();
-    segDiscr->exportOBJ();
 }
 
 CarreauParametrique* myOpenGLWidget::sampleCarreau(){

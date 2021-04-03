@@ -45,6 +45,7 @@ void GLObject::initPts(){
     }
 
     for (int i= 0; i < points.length(); i++){
+        qDebug() << "idVBO = "<< points.at(i).id;
         vertices[i*3] = points.at(i).getX();
         vertices[i*3+1] = points.at(i).getY();
         vertices[i*3+2] = points.at(i).getZ();
@@ -107,31 +108,15 @@ void GLObject::draw(QOpenGLShaderProgram* m_program, QOpenGLFunctions *glFuncs){
 }
 
 void GLObject::exportOBJ(){
-    int n = points.length()-controlPts.length();
-    QMap<int, Point> vertexMap = QMap<int, Point>();
-    QList<Point> vertexes = QList<Point>();
-    QList<QList<int>> faces = QList<QList<int>>();
-    QList<int> faceTmp = QList<int>();
-    int sizeFace = 1;
-    if (mode.compare("triangles") == 0){
-        sizeFace = 3;
-    }
-
-    for (int i = 0; i < n; i++){
-        Point px = points.at(i);
-        qDebug() << px.id;
-        if (vertexMap.contains(px.id) == false){
-            vertexMap.insert(px.id, px);
-            vertexes.append(px);
-        }
-        faceTmp.append(px.id);
-        if (i%sizeFace == 0){
-            faces.append(faceTmp);
-            faceTmp = QList<int>();
-        }
-    }
-    for (int i = 0; i < vertexes.length(); i++){
-        Point px = vertexes.at(i);
-        qDebug() << "v" << px.getX() << px.getY() << px.getZ();
-    }
+    qDebug() << __FUNCTION__ ;
+   ofstream myfile;
+     myfile.open ("exported_mesh.obj");
+   for(int i = 0; i < points.length()-controlPts.length(); i++){
+       myfile << "v " << points.at(i).getX() << ' ' << points.at(i).getY() << ' ' << points.at(i).getZ()<< endl;
+   }
+   for(int i = 0; i < (points.length()-controlPts.length())/3; i++){
+       myfile << "f " << i+1 << ' ' << i+2 << ' ' << i+3 << endl;
+   }
+   myfile.close();
+   qDebug()<< "fin de l'exportation";
 }

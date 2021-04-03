@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     step = 10;
 
+    //Point::nbPts = -1;
     points[0] = pointSample(-1,0,0);//A
     points[3] = pointSample(1,0,0);//B
     points[1] = pointSample(-1.5,0,0.25);//E
@@ -52,8 +53,8 @@ void MainWindow::on_pushButton_3_pressed()
 
 void MainWindow::newOpenGLWidget(){
     myopenglwidget = new myOpenGLWidget(this, points, n, m, step, mode);
-    ui->verticalLayout->addWidget(myopenglwidget);
     delete ui->verticalLayout->takeAt(1);
+    ui->verticalLayout->addWidget(myopenglwidget);
 }
 
 Point MainWindow::pointSample(float x, float y, float z){
@@ -116,4 +117,12 @@ void MainWindow::process(Point pointss[],int N,int M){
 void MainWindow::on_pushButton_2_pressed()
 {
     opt->show();
+}
+
+void MainWindow::on_pushButton_pressed()
+{
+    if(mode.compare("pleine") == 0)
+        myopenglwidget->segDiscr->exportOBJ();
+    else
+        qInfo() << "------ ERREUR : Export non effectué car non plein -----";
 }

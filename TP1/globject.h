@@ -5,7 +5,9 @@
 #include <QOpenGLShaderProgram>
 #include <QVector>
 #include "point.h"
-
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 class GLObject
 {
